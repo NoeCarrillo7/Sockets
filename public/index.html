@@ -26,15 +26,16 @@
                         <form action="" id="enviarDatos">
                             <div class="card">
                                 <div class="card-header">
-                                    <h1>Nuevo usuario</h1>
+                                    <h1 id="txtNuevoUsuario">Nuevo usuario</h1>
                                 </div>
                                 <div class="card-body">
+                                    <input class="form-control mb-3" type="text" name="id" id="id" placeholder="Id" readonly disabled>
                                     <input class="form-control mb-3" type="text" name="nombre" id="nombre" placeholder="Nombre" autofocus>
                                     <input class="form-control mb-3" type="text" name="usuario" id="usuario" placeholder="Usuario">
                                     <input class="form-control mb-3" type="text" name="password" id="password" placeholder="Password">
                                 </div>
                                 <div class="card-footer">
-                                    <button class="form-control btn btn-primary mb-3" type="submit">Guardar Usuario</button>
+                                    <button id="txtGuardarUsuario" class="form-control btn btn-primary mb-3" type="submit">Guardar Usuario</button>
                                     <button class="form-control btn btn-secondary" type="reset">Borrar Datos</button>
                                 </div>
                             </div>
@@ -63,15 +64,16 @@
                         <form action="" id="enviarDatosP">
                             <div class="card">
                                 <div class="card-header">
-                                    <h1>Nuevo Producto</h1>
+                                    <h1 id="txtNuevoProducto">Nuevo Producto</h1>
                                 </div>
                                 <div class="card-body">
+                                    <input class="form-control mb-3" type="text" id="id" placeholder="id" readonly disabled>
                                     <input class="form-control mb-3" type="text" name="nombreP" id="nombreP" placeholder="Nombre">
                                     <input class="form-control mb-3" type="text" name="precio" id="precio" placeholder="Precio">
                                     <input class="form-control mb-3" type="text" name="cantidad" id="cantidad" placeholder="Cantidad">
                                 </div>
                                 <div class="card-footer">
-                                    <button class="form-control btn btn-primary mb-3" type="submit">Guardar Producto</button>
+                                    <button id="txtGuardarProducto" class="form-control btn btn-primary mb-3" type="submit">Guardar Producto</button>
                                     <button class="form-control btn btn-secondary" type="reset">Borrar Datos</button>
                                 </div>
                             </div>
@@ -92,4 +94,9 @@
                             </tbody>
                         </table>
                     </div>
-                </div
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

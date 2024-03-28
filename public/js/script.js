@@ -4,6 +4,7 @@ var datos = document.getElementById("datos");
 var datosP = document.getElementById("datosP");
 
 
+
 //Mostrar datos de MongoDB
 socket.on("servidorEnviarUsuarios", (usuarios)=>{
     console.log(usuarios);
@@ -11,7 +12,7 @@ socket.on("servidorEnviarUsuarios", (usuarios)=>{
     usuarios.forEach((usuario,idLocal)=>{
         tr= tr + `
         <tr>
-            <td>${idLocal+1}</td>
+            <td>${(idLocal+1)*100}</td>
             <td>${usuario.nombre}</td>
             <td>${usuario.usuario}</td>
             <td>${usuario.password}</td>
@@ -27,12 +28,11 @@ socket.on("servidorEnviarUsuarios", (usuarios)=>{
 
 //Mostrar datos de productos MongoDB
 socket.on("servidorEnviarProductos", (productos)=>{
-    console.log(productos);
     var tr = "";
     productos.forEach((producto,idLocal)=>{
         tr= tr + `
         <tr>
-            <td>${idLocal+1}</td>
+            <td>${(idLocal+1*100)}</td>
             <td>${producto.nombre}</td>
             <td>${producto.precio}</td>
             <td>${producto.cantidad}</td>
@@ -52,6 +52,7 @@ var enviarDatos = document.getElementById("enviarDatos");
 enviarDatos.addEventListener("submit", (e)=>{
     e.preventDefault();
     var usuario = {
+        id:document.getElementById("id").value,
         nombre: document.getElementById("nombre").value,
         usuario: document.getElementById("usuario").value,
         password: document.getElementById("password").value
@@ -77,6 +78,7 @@ var enviarDatosP = document.getElementById("enviarDatosP");
 enviarDatosP.addEventListener("submit", (e)=>{
     e.preventDefault();
     var producto = {
+        id:document.getElementById("id").value,
         nombre: document.getElementById("nombreP").value,
         precio: document.getElementById("precio").value,
         cantidad: document.getElementById("cantidad").value
@@ -101,17 +103,45 @@ enviarDatosP.addEventListener("submit", (e)=>{
 //Modificar un registro de MongoDB
 function editarUsuario(id) {
     console.log(id);
+    socket.emit("clienteObtenerUsuarioPorID", id);
 }
-//Eliminar un registro de MongoDB
-function borrarUsuario(id) {
-    console.log(id);
-}
+
+socket.on("servidorObtenerUsuarioPorID", (usuario)=>{
+    console.log(usuario);
+    document.getElementById("id").value = usuario._id;
+    document.getElementById("nombre").value = usuario.nombre;
+    document.getElementById("usuario").value = usuario.usuario;
+    document.getElementById("password").value = usuario.password;
+    document.getElementById("txtNuevoUsuario").innerHTML = "Editar Usuario";
+    document.getElementById("txtGuardarUsuario").innerHTML = "Guardar Cambios";
+});
+
 
 //Modificar un registro de PRODUCTOS MongoDB
 function editarProducto(id) {
     console.log(id);
+    socket.emit("clienteObtenerProductoPorID", id);
 }
-//Eliminar un registro de PRODUCTOS MongoDB
+
+socket.on("servidorObtenerProductoPorID", (producto)=>{
+    console.log(producto);
+    document.getElementById("id").value = producto._id;
+    document.getElementById("nombre").value = producto.nombre;
+    document.getElementById("precio").value = producto.precio;
+    document.getElementById("cantidad").value = producto.cantidad;
+    document.getElementById("txtNuevoProducto").innerHTML = "Editar Producto";
+    document.getElementById("txtGuardarProducto").innerHTML = "Guardar Cambios";
+});
+
+
+//Eliminar un registro de MongoDB
+function borrarUsuario(id) {
+    console.log(id);
+    socket.emit("clienteBorrarUsuario", id);
+}
+
+//Eliminar un registro de MongoDB
 function borrarProducto(id) {
     console.log(id);
+    socket.emit("clienteBorrarProducto", id);
 }
